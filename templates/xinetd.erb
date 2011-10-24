@@ -1,0 +1,39 @@
+#
+# Fichier genere par puppet
+#
+
+# description: <%= description %>
+service <%= service %>
+{
+        disable                 = <%= disable %>
+        socket_type             = <%= socket_type %>
+<% if protocol != ""  -%>
+	protocol                = <%= protocol %>
+<% end -%>
+        wait                    = <%= wait %>
+        user                    = <%= user %>
+<% if group != ""  -%>
+	group                   = <%= group %>
+<% end -%>
+        server                  = <%= server %>
+<% if log_type != ""  -%>
+	log_type		= <%= log_type %>
+<% end -%>
+<% if log_on_success != ""  -%>
+	log_on_success		= <%= log_on_success %>
+<% end -%>
+<% if log_on_failure != ""  -%>
+	log_on_failure		= <%= log_on_failure %>
+<% end -%>
+<% if nice != ""  -%>
+	nice			= <%= nice %>
+<% end -%>
+<% if onlyfrom.length >= 1 -%>
+	onlyfrom                = <% onlyfrom.each do |server| -%><%= Resolv.getaddress(server).to_s %> <% end -%>
+<% end -%>
+
+}
+
+<% onlyfrom.each do |server| -%>
+# <%= Resolv.getaddress(server).to_s %> <%= server %>
+<% end -%>
